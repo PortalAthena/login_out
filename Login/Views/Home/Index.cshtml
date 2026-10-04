@@ -1,0 +1,267 @@
+﻿<link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
+
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Portal Athena</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form asp-action="Login" method="post">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label>Login</label>
+                        <input type="text" name="Login" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Senha</label>
+                        <input type="password" name="Password" class="form-control" required />
+                    </div>
+
+                    <div class="text-end">
+                        <a href="#" id="linkEsqueciSenha"
+                           class="small text-decoration-none">
+                            Esqueci minha senha
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Entrar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="recuperarSenhaModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 shadow-lg border-0" style="border-radius: 16px;">
+
+            <!-- Cabeçalho limpo e centralizado -->
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-petroleo fw-bold w-100 text-center">Recuperação de Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <!-- Formulário -->
+            <form id="formRecuperarSenha">
+                <div class="modal-body text-center pt-2">
+
+                    <!-- Ícone ilustrativo opcional para dar identidade visual -->
+                    <div class="mb-3">
+                        <i class="bi bi-shield-lock text-primary" style="font-size: 3rem;"></i>
+                    </div>
+
+                    <p class="text-muted small mb-4">
+                        Digite seu login de acesso. Enviaremos as instruções de recuperação para seu telefone cadastrado.
+                    </p>
+
+                    <div class="text-start">
+                        <label for="senhaRecuperacao" class="form-label text-petroleo fw-semibold small">Login / Usuário</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="bi bi-person text-muted"></i>
+                            </span>
+                            <input type="text" id="senhaRecuperacao" name="login"
+                                   class="form-control border-start-0 ps-0"
+                                   placeholder="Digite seu Login de acesso"
+                                   required />
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé sem borda padrão, ocupando bem o espaço -->
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" id="btnEnviarRecuperacao" class="btn btn-primary w-100 py-2 fw-semibold shadow-sm">
+                        <i class="bi bi-send me-1"></i> Enviar link de recuperação
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resetarSenhaModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 shadow-lg border-0" style="border-radius: 16px;">
+
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title text-petroleo fw-bold w-100 text-center">Atualização Obrigatória de Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <div class="modal-body text-center pt-2">
+                <div class="mb-3">
+                    <img src="~/img/changePassword.png" class="form-icon" alt="Ícone de Alteração de Senha" />
+                </div>
+
+                <h3 class="text-petroleo fw-bold mb-3" id="spanUsuarioLogin">@TempData["UsuarioParaResetar"]</h3>
+                <input type="hidden" value="@TempData["UsuarioParaResetar"]" id="loginReset" />
+
+                <div class="text-start">
+                    <label for="email" class="form-label text-petroleo fw-semibold small">Atualize seu Email</label>
+                    <input type="email" id="email" class="form-control mb-3" placeholder="Seu e-mail principal" required>
+
+                    <label for="celular" class="form-label text-petroleo fw-semibold small">Informe seu Telefone Celular</label>
+                    <input type="text" id="celular" class="form-control mb-3" placeholder="(00) 00000-0000" required>
+
+                    <hr class="text-muted my-3" />
+
+                    <label for="senhaAnterior" class="form-label text-petroleo fw-semibold small">Senha Anterior (Temporária)</label>
+                    <input type="password" id="senhaAnterior" class="form-control mb-3" placeholder="Digite a senha atual" required>
+
+                    <label for="senhaNova" class="form-label text-petroleo fw-semibold small">Nova Senha</label>
+                    <input type="password" id="senhaNova" class="form-control mb-3" placeholder="Crie uma nova senha segura" required>
+
+                    <label for="ConfirmaSenha" class="form-label text-petroleo fw-semibold small">Confirme a Nova Senha</label>
+                    <input type="password" id="ConfirmaSenha" class="form-control mb-3" placeholder="Digite a nova senha novamente" required>
+                </div>
+
+                <button type="button" id="MudarSenha" class="btn btn-petroleo w-100 py-2 fw-semibold mt-2 shadow-sm">
+                    Alterar Senha e Continuar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // 1. Configuração do Toastr
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "4000"
+        };
+
+        // 2. Instanciação dos Modais
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        const recuperarModal = new bootstrap.Modal(document.getElementById('recuperarSenhaModal'));
+
+        const resetarModalElement = document.getElementById('resetarSenhaModal');
+        if (resetarModalElement) {
+            const resetarModal = new bootstrap.Modal(resetarModalElement);
+            // Verifica se o TempData mandou abrir o modal de reset
+            let deveAbrirReset = @(TempData["AbrirModalResetar"] != null && (bool)TempData["AbrirModalResetar"] ? "true" : "false");
+
+            if (deveAbrirReset) {
+                resetarModal.show();
+            }
+        }
+
+        // 3. Transição: Login -> Esqueci a Senha
+        document.getElementById("linkEsqueciSenha").addEventListener("click", function (e) {
+            e.preventDefault();
+            loginModal.hide();
+            setTimeout(function () {
+                recuperarModal.show();
+            }, 400); // Tempo para a animação do Bootstrap terminar
+        });
+
+        // 4. Lógica: Enviar Recuperação de Senha (Fetch)
+        document.getElementById("btnEnviarRecuperacao").addEventListener("click", function () {
+            const loginInput = document.getElementById("senhaRecuperacao").value;
+
+            if (!loginInput) {
+                toastr.warning("Por favor, preencha o campo com seu login.", "Atenção!");
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            formData.append("Login", loginInput);
+
+            fetch('/Home/RecuperarSenha', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    toastr.success(data.message, "Sucesso!");
+                    recuperarModal.hide(); // Agora funciona, pois está no mesmo escopo!
+                    document.getElementById("formRecuperarSenha").reset();
+                } else {
+                    toastr.warning(data.message, "Atenção!");
+                }
+            })
+            .catch(error => {
+                console.error('Erro detalhado completo:', error);
+                toastr.error("Erro técnico: " + error.message, "Erro!");
+            });
+        });
+
+        // 5. Lógica: Mudar Senha Obrigatória (Fetch)
+        document.getElementById("MudarSenha").addEventListener("click", function () {
+
+            const loginVal = document.getElementById("loginReset").value;
+            const emailVal = document.getElementById("email").value;
+            const celularVal = document.getElementById("celular").value;
+            const senhaAntigaVal = document.getElementById("senhaAnterior").value;
+            const senhaNovaVal = document.getElementById("senhaNova").value;
+            const confirmaSenhaVal = document.getElementById("ConfirmaSenha").value;
+
+            // Validação simples no front-end
+            if(!senhaNovaVal || !confirmaSenhaVal) {
+                toastr.warning("Preencha a nova senha e a confirmação.", "Atenção!");
+                return;
+            }
+
+            if (senhaNovaVal !== confirmaSenhaVal) {
+                toastr.warning("A nova senha e a confirmação não conferem.", "Atenção!");
+                return;
+            }
+
+            const dados = {
+                loginUsuario: loginVal,
+                emailUsuario: emailVal,
+                telefoneUsuario: celularVal,
+                senhaUsuario: senhaAntigaVal,
+                novaSenha: senhaNovaVal,
+                confirmaSenha: confirmaSenhaVal
+            };
+
+            fetch('/Home/AlteraUsuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify(dados)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    toastr.success(data.message, "Sucesso!");
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    toastr.warning(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                toastr.error("Ocorreu um erro inesperado.", "Erro!");
+            });
+        });
+
+    });
+</script>

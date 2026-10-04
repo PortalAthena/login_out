@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portal Athena</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 🟢 CSS do Toastr adicionado no Head -->
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Banner de aviso -->
+    @if (TempData["Aviso"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show border-0 rounded-0 mb-0 text-center"
+             role="alert">
+            <strong>Aviso:</strong> @TempData["Aviso"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"></button>
+        </div>
+    }
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-petroleo border-bottom box-shadow mb-3">
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <img src="~/img/logo.png"
+                         alt="Logo Portal Athena"
+                         class="img-fluid me-2" />
+                    <span class="fw-bold">Portal Athena |</span>
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <span class="text-capitalize">Menu</span>
+
+                    }
+                    else
+                    {
+                        <span class="text-capitalize">Inicio</span>
+                    }
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    <!-- Links à esquerda -->
+                    <ul class="navbar-nav me-auto">
+                    </ul>
+
+                    <!-- Área de autenticação -->
+                    <ul class="navbar-nav align-items-center">
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item me-3">
+                                <span class="navbar-text text-light fw-semibold">
+                                    Olá, @User.Identity.Name
+                                </span>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Home"
+                                   asp-action="Logout">
+                                    Sair
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-light btn-sm px-3"
+                                   href="#">
+                                    Registrar
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#loginModal">
+                                    Entrar
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container pb-3 flex-fill">
+        @RenderBody()
+    </main>
+
+    <footer class="footer text-muted py-3 mt-auto">
+        <div class="container text-center small">
+            &copy; 2026 - <strong>Portal Athena</strong>
+        </div>
+    </footer>
+
+    <!-- 1️⃣ Carregar o jQuery PRIMEIRO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- 2️⃣ Carregar o Bootstrap DEPOIS do jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 3️⃣ Carregar o Toastr POR ÚLTIMO (já que ele precisa do jQuery carregado acima) -->
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

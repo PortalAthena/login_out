@@ -1,0 +1,232 @@
+/* =====================================================
+   VARIÁVEIS GLOBAIS
+===================================================== */
+:root {
+    --azul-petroleo: #191970;
+    --azul-petroleo-hover: #006666;
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+/* (Espaço reservado para futuras configurações globais) */
+
+
+/* =====================================================
+   NAVBAR PRINCIPAL
+===================================================== */
+
+.navbar {
+    padding-top: 0.84rem;
+    padding-bottom: 0.85rem;
+}
+
+/* Fundo degradê corporativo */
+.bg-petroleo {
+    position: relative;
+    overflow: visible;
+    background: linear-gradient( to bottom, #24308f 0%, #191970 45%, #0f103a 100% ) !important;
+}
+
+    /* Linha branca interna inferior */
+    .bg-petroleo::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0.2rem;
+        width: 100%;
+        height: 3px;
+        background-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+    }
+
+/* =====================================================
+   BRAND / LOGO
+===================================================== */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+    .navbar-brand span {
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .navbar-brand img {
+        max-height: 38px;
+        width: auto;
+    }
+
+    /* Subtítulo da área */
+    .navbar-brand .area-site {
+        font-size: 1.29rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        opacity: 0.75;
+        line-height: 1;
+        align-self: center;
+    }
+
+/* =====================================================
+   LINKS NAVBAR
+===================================================== */
+
+.navbar .nav-link {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.nav-link-custom {
+    color: rgba(255, 255, 255, 0.85) !important;
+    position: relative;
+    transition: color 0.25s ease;
+}
+
+    .nav-link-custom:hover {
+        color: #ffffff !important;
+    }
+
+    /* Sublinhado elegante */
+    .nav-link-custom::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: width 0.25s ease;
+    }
+
+    .nav-link-custom:hover::after {
+        width: 100%;
+    }
+
+/* =====================================================
+   BANNER DE AVISO
+===================================================== */
+
+.custom-banner {
+    background-color: #fff3cd;
+    color: #856404;
+    width: 50%;
+    margin: 0 auto;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1050;
+}
+
+    .custom-banner .btn-close {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%) scale(0.7);
+    }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .custom-banner {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+/* =====================================================
+   CARDS - PORTAL CORPORATIVO
+===================================================== */
+
+.portal-card {
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+    .portal-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+/* Área da imagem/ícone */
+.card-img-wrapper {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+}
+
+    .card-img-wrapper img {
+        max-height: 90px;
+        object-fit: contain;
+    }
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #dee2e6;
+}
+
+/* =====================================================
+  CHANGEYOUPASSWORD
+===================================================== */
+
+/* Card */
+.form-card {
+    width: 100%;
+    max-width: 470px;
+    border-radius: 16px;
+}
+
+/* Ícone */
+.form-icon {
+    max-width: 120px;
+}
+
+/* Azul Petróleo */
+.text-petroleo {
+    color: #191970;
+}
+
+.btn-petroleo {
+    background-color: #191970;
+    color: #fff;
+    border: none;
+}
+
+    .btn-petroleo:hover {
+        background-color: #1f6f78;
+        color: #fff;
+    }
+
+.link-petroleo {
+    color: #1f6f78;
+    text-decoration: none;
+}
+
+    .link-petroleo:hover {
+        text-decoration: underline;
+    }
+
+/* Inputs */
+.form-control:focus {
+    border-color: #4fb3bf;
+    box-shadow: 0 0 0 0.2rem rgba(79, 179, 191, 0.25);
+}
